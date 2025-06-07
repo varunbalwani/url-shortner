@@ -4,6 +4,7 @@ import (
     "github.com/gin-gonic/gin"
     "net/http"
     "url-shortner/internal/service"
+    "log"
 )
 
 type ShortenRequest struct {
@@ -19,7 +20,8 @@ func ShortenURL(c *gin.Context) {
 
     shortCode, err := service.Shorten(req.URL)
     if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        log.Fatal("abc error:", err)
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err})
         return
     }
 
@@ -34,5 +36,5 @@ func ResolveURL(c *gin.Context) {
         return
     }
 
-    c.Redirect(http.StatusFound, originalURL)
+    c.JSON(http.StatusOK, gin.H{"originalUrl": originalURL})
 }

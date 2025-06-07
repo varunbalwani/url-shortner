@@ -36,3 +36,4 @@ services:
 
 volumes:
   pgdata:
+# docker exec -it url_shortener_postgres psql -U user -d url_shortener
