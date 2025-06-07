@@ -3,7 +3,7 @@ package handler
 import (
     "github.com/gin-gonic/gin"
     "net/http"
-    "url-shortener/internal/service"
+    "url-shortner/internal/service"
 )
 
 type ShortenRequest struct {

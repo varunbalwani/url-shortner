@@ -2,7 +2,7 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
-    "url-shortener/internal/handler"
+    "url-shortner/internal/handlers"
 )
 
 func main() {
