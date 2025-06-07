@@ -4,7 +4,7 @@ import (
     "errors"
     "math/rand"
     "time"
-    "url-shortener/internal/repository"
+    "url-shortner/internal/repository"
 )
 
 const shortCodeLength = 6
