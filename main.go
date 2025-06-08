@@ -5,7 +5,7 @@ import (
 	"log"
 	handler "url-shortner/internal/handlers"
 	"url-shortner/internal/repository"
-
+    "url-shortner/internal/analytics"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +22,8 @@ func main() {
     repository.SetRedisClient(rdb)
 	defer rdb.Close()
 	fmt.Println("Redis connected!")
+    analytics.InitKafkaProducer("localhost:9092", "click-events")
+    go analytics.StartKafkaConsumer("localhost:9092", "click-events", "url-shortener-consumer-group")
     router := gin.Default()
 	handler.RegisterRoutes(router)
 	router.Run(":8080")

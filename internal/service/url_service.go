@@ -5,6 +5,7 @@ import (
     "math/rand"
     "time"
     "url-shortner/internal/repository"
+    "url-shortner/internal/analytics"
 )
 
 const shortCodeLength = 6
@@ -46,6 +47,7 @@ func Resolve(shortCode string) (string, error) {
     // Try Redis
     url, err := repository.GetFromCache(shortCode)
     if err == nil && url != "" {
+        go analytics.PublishClick(shortCode, url) // async
         return url, nil
     }
 
@@ -57,6 +59,8 @@ func Resolve(shortCode string) (string, error) {
 
     // Cache it again
     _ = repository.SaveToCache(shortCode, url)
+    
+    go analytics.PublishClick(shortCode, url) // async
 
     return url, nil
 }
